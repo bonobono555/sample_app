@@ -4,4 +4,12 @@ class StaticPagesController < ApplicationController
 
   def help
   end
+
+  def about
+  end
+
+  # 問合せページ
+  def about
+  end
+
 end
