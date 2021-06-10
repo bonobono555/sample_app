@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get  '/contract', to: 'static_pages#contract'
   get  '/contact', to: 'static_pages#contact'
   get  '/signup', to: 'users#new'
-
+  resources :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # root 'application#hello'
 
