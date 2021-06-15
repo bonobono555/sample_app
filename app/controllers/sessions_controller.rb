@@ -16,8 +16,8 @@ class SessionsController < ApplicationController
       log_in user
       # ログイン情報記憶 三項演算子を利用
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      # リダイレクトさせる
-      redirect_to user
+      # 記憶したURL（もしくはデフォルト値）にリダイレクト
+      redirect_back_or user
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
