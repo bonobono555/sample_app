@@ -1,44 +1,32 @@
 # README
 
-# Ruby on Rails チュートリアルのサンプルアプリケーション
+# バージョン情報
+ruby 2.6.6
+rails 6.0.3
 
-これは、次の教材で作られたサンプルアプリケーションです。
-[*Ruby on Rails チュートリアル*](https://railstutorial.jp/)
-（第6版）
-[Michael Hartl](https://www.michaelhartl.com/) 著
+# 環境構築方法
 
-## ライセンス
-
-[Ruby on Rails チュートリアル](https://railstutorial.jp/)内にある
-ソースコードはMITライセンスとBeerwareライセンスのもとで公開されています。
-詳細は [LICENSE.md](LICENSE.md) をご覧ください。
-
-## 使い方
-
-このアプリケーションを動かす場合は、まずはリポジトリを手元にクローンしてください。
-その後、次のコマンドで必要になる RubyGems をインストールします。
-
+1. このリポジトリをcloneする
 ```
-$ bundle install --without production
+git clone git@github.com:bonobono555/sample_app.git
 ```
 
-その後、データベースへのマイグレーションを実行します。
-
+2. yarn install
 ```
-$ rails db:migrate
-```
-
-最後に、テストを実行してうまく動いているかどうか確認してください。
-
-```
-$ rails test
+yarn install
 ```
 
-テストが無事に通ったら、Railsサーバーを立ち上げる準備が整っているはずです。
-
+3. bundle install
 ```
-$ rails server
+bundle install
 ```
 
-詳しくは、[*Ruby on Rails チュートリアル*](https://railstutorial.jp/)
-を参考にしてください。
+4. DBマイグレーション
+```
+rails db:migrate
+```
+
+5. railsサーバー起動
+```
+rails server
+```
