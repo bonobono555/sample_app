@@ -3,13 +3,13 @@ class Api::ProductsController < ApplicationController
   # ユーザー一覧取得
   def index
     @product = Product.paginate(page: params[:page])
-    render json: {status: 'SUCCESS', message: '成功', data: @product}, status: :ok
+    render json: { status: 'SUCCESS', message: '成功', data: @product }, status: :ok
   end
 
   # ユーザー詳細取得
   def show
     @product = Product.find(params[:id])
-    render json:{status: "SUCCESS", message: '成功', data: @product}, status: :ok
+    render json: { status: "SUCCESS", message: '成功', data: @product }, status: :ok
   end
 
   # ユーザー登録
@@ -20,10 +20,10 @@ class Api::ProductsController < ApplicationController
       # バリデーションメッセージの存在確認を行う　TODO 通常行うのか？
       unless @product.errors.messages.blank?
         # renderは複数回書いてはだめなのでand returnを最後につける
-        render json: @product.errors.messages, status: 503 and return 
+        render json: @product.errors.messages, status: 503 and return
       else
         # TODO 文字列外だし、通過するかのテスト実施
-        render json: {status: "FAILED", mesasge: "失敗", data: "意図しないエラー発生"}, status: 500 and return 
+        render json: { status: "FAILED", mesasge: "失敗", data: "意図しないエラー発生" }, status: 500 and return
       end
     end
 
@@ -31,13 +31,12 @@ class Api::ProductsController < ApplicationController
 
     if @product.createProduct @product
       render json: { stauts: "SUCCESS", mesasge: "成功" }, status: 201 and return
-    else 
+    else
       # TODO DB登録失敗時、contorollerで分岐させず、modelで例外発生した時点でjsonエラーレスポンスを返したい
       render json: { stauts: "FAILED", mesasge: "失敗" }, status: 500
     end
 
   end
-
 
   # 商品検索
   def search
@@ -47,29 +46,30 @@ class Api::ProductsController < ApplicationController
     unless @searchProduct.valid?
       # バリデーションメッセージの存在確認を行う
       unless @searchProduct.errors.messages.blank?
-        render json: @searchProduct.errors.messages, status: 503 and return 
+        render json: @searchProduct.errors.messages, status: 503 and return
       else
-        render json: {status: "FAILED", mesasge: "失敗", data: "意図しないエラー発生"}, status: 500 and return 
+        render json: { status: "FAILED", mesasge: "失敗", data: "意図しないエラー発生" }, status: 500 and return
       end
     end
 
     @product = Product.new
-    @searchProductList = @product.searchProduct @searchProduct
+    @searchProductList = @product.searchProduct params
 
-    render json: { stauts: "SUCCESS", mesasge: "検索成功", data: @searchProductList }, status: 200 and return
+    render json: { stauts: "SUCCESS", message: "検索成功", data: @searchProductList }, status: 200 and return
   end
 
   private
-    # Strong Parameters設定　必須パラメーターを設定
-    def product_params
-      params.require(:product).permit(:product_name, :description, :price, :image_url)
-    end
 
-    # 検索API　Strong Parameters設定 
-    # fetch:リクエストにルートキーがないためrequireではなくfetchを使用
-    # リクエスト内容全て許可するためpermit()ではなく、permit!を使用
-    def search_product_params
-      params.fetch(:search_product, {}).permit! 
-    end
-    
+  # Strong Parameters設定　必須パラメーターを設定
+  def product_params
+    params.require(:product).permit(:product_name, :description, :price, :image_url)
+  end
+
+  # 検索API　Strong Parameters設定
+  # fetch:リクエストにルートキーがないためrequireではなくfetchを使用
+  # リクエスト内容全て許可するためpermit()ではなく、permit!を使用
+  def search_product_params
+    params.fetch(:search_product, {}).permit!
+  end
+
 end
