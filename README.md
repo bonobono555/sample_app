@@ -30,3 +30,5 @@ rails db:migrate
 ```
 rails server
 ```
+
+6. 完了
