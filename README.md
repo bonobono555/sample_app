@@ -31,4 +31,8 @@ rails db:migrate
 rails server
 ```
 
-6. 完了
+6. 起動確認
+   
+http://127.0.0.1:3001  
+http://127.0.0.1:3001/login  
+http://127.0.0.1:3001/api/products/search?min_price=100
