@@ -51,7 +51,8 @@ class Api::ProductsController < Api::ApiBaseController
       unless @searchProduct.errors.messages.blank?
         render json: @searchProduct.errors.messages, status: 503 and return
       else
-        render json: { status: "FAILED", mesasge: "失敗", data: "意図しないエラー発生" }, status: 500 and return
+        # TODO エラー共通化  エラーをhelper使って書き換えた
+        render_internal_server_error and return
       end
     end
 
