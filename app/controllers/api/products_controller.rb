@@ -1,5 +1,5 @@
-class Api::ProductsController < ApplicationController
-  require "./app/request/search_product"
+class Api::ProductsController < Api::ApiBaseController
+
   # ユーザー一覧取得
   def index
     @product = Product.paginate(page: params[:page])
@@ -40,6 +40,9 @@ class Api::ProductsController < ApplicationController
 
   # 商品検索
   def search
+    raise NotAuthorizedError, 'Rails の許可ぁ？認められないわぁ'
+    # raise(NotAuthorizedError, 'Rails の許可ぁ？認められないわぁ')
+    # raise RuntimeError
     # TODO Productクラスで定義したバリデーションと異なるバリデーションを行いたい場合のベストプラクティス
     @searchProduct = SearchProduct.new(search_product_params)
     # 入力値のバリデーション実行
@@ -55,7 +58,7 @@ class Api::ProductsController < ApplicationController
     @product = Product.new
     @searchProductList = @product.searchProduct params
 
-    render json: { stauts: "SUCCESS", message: "検索成功", data: @searchProductList }, status: 200 and return
+    render json: { stauts: "SUCCESS", message: "検索成功！", data: @searchProductList }, status: 200 and return
   end
 
   private
