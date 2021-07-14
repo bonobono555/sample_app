@@ -1,3 +1,3 @@
-class API::ApiBaseController < ActionController::API
-
+class Api::ApiBaseController < ActionController::API
+  include ApiResponseHelper
 end
